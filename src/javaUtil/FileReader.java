@@ -166,7 +166,7 @@ public class FileReader {
 			row.createCell(i).setCellValue(intest.get(i));
 		}
 
-		int indexStarterRow=0;
+		int indexStarterRow = 0;
 		for (int i = 1; i < sheetStarter.size(); i++) {
 
 			Row newRow = sheet.createRow(i);
@@ -174,16 +174,26 @@ public class FileReader {
 
 				int colle = Integer.parseInt(collega.get(col));
 				int limite = Integer.parseInt(limit.get(col));
+				int acc = Integer.parseInt(accoda.get(col));
+				String accodValue="";
+				if (acc != 0) {
+					acc--;
+					accodValue = (String) ((ArrayList) sheetStarter.get(indexStarterRow)).get(acc);
+				}else {
+					accodValue = " ";
+				}
 				if (colle != 0) {
 					colle--;
 					String cellValue = (String) ((ArrayList) sheetStarter.get(indexStarterRow)).get(colle);
 					if (limite == 0) {
-						newRow.createCell(col).setCellValue(cellValue);
-					}else if(cellValue.length()<=limite){
-						newRow.createCell(col).setCellValue(cellValue);
-					}else {
+						newRow.createCell(col).setCellValue(
+								cellValue + " " +accodValue);
+					} else if (cellValue.length() <= limite) {
+						newRow.createCell(col).setCellValue(
+								cellValue + " " + accodValue);
+					} else {
 						colle++;
-						esitoFun.put("false", "limite sforato nella riga: "+i+", colonna: "+colle);
+						esitoFun.put("false", "limite sforato nella riga: " + i + ", colonna: " + colle);
 						return esitoFun;
 					}
 				}
